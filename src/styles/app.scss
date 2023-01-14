@@ -1,0 +1,193 @@
+//! mixin and short-styles 
+
+// todo > move this styles another file
+
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+//* -----------------------------------------------------------------
+
+
+
+
+
+
+.wrapper {
+  background-color: #fff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  max-width: 1100px;
+  margin: 50px auto;
+}
+
+header {
+  padding: 40px;
+  border-bottom: 1px solid #bbbbbb;
+
+  img {
+    margin-right: 12px;
+  }
+
+  p {
+    opacity: .5;
+  }
+
+  h3,
+  p {
+    margin: 0;
+  }
+
+  ul {
+    @include reset-list;
+  }
+}
+
+.content {
+  padding: 36px;
+
+  .search--input {
+    border: 1px solid #dbdada;
+    display: flex;
+    align-items: center;
+    padding: 0 13px;
+    border-radius: 12px;
+
+    input[type=search] {
+      border: 0;
+      outline: none;
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+    }
+  }
+}
+
+.btn {
+  background-color: #fff;
+  border: 2px solid darkblue;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+}
+
+.green--btn {
+  width: 100%;
+  height: 55px;
+  background-color: #27ae60;
+  border-radius: 18px;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 0;
+  transition: .4s ease-in-out;
+
+  &:hover {
+    background-color: lighten($color:#27ae60, $amount: 6%);
+    color: black;
+  }
+
+  &:active {
+    background-color: darken($color:#27ae60, $amount: 10%);
+    color: blue;
+
+  }
+}
+
+.line {
+  width: 100%;
+  border-radius: 24px;
+}
+
+.basket--line {
+  margin-bottom: 26px;
+}
+
+.cartEmpty {
+  text-align: center;
+  height: 100%;
+
+  p {
+    width: 280px;
+    line-height: 24px;
+  }
+
+  .greenButton {
+    width: 245px;
+    margin-top: 20px;
+
+    &:hover {
+      img {
+        transform: rotate(180deg) translateX(3px);
+      }
+    }
+
+    img {
+      position: relative;
+      top: 1px;
+      transform: rotate(180deg);
+      margin-right: 15px;
+      transition: transform 0.15s ease-in-out;
+    }
+  }
+}
+
+.greenButton {
+  width: 100%;
+  height: 55px;
+  background: #34495e;
+  border-radius: 18px;
+  border: 0;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.1s ease-in-out;
+
+  &:disabled {
+    background-color: #bebebe !important;
+    cursor: default;
+  }
+
+  &:hover {
+    background: lighten(#34495e, 6%);
+  }
+
+  &:active {
+    background: darken(#34495e, 6%);
+  }
+}
+
+.cart-info_block {
+  border-right: 2px solid gray;
+  padding-right: 20px;
+}
+
+
+// -----
+.all-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px 15px;
+}
+
+@media screen and (max-width: 630px) {
+  .header {
+    flex-direction: column;
+    row-gap: 26px;
+
+    .line {
+      display: block !important;
+    }
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .search--block {
+    flex-direction: column;
+  }
+}
