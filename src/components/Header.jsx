@@ -12,8 +12,8 @@ const Header = ({ onOpen }) => {
                <div className="d-flex align-center">
                      <img src="img/logo.png" alt="logo" width={ 40 } height={ 40 } />
                      <div className="header--info">
-                        <h3 className="text-UPPERCASE "> React Sneakers </h3>
-                        <p>Best sneakers in our shop </p>
+                        <h3 className="text-UPPERCASE "> Sneakers World  </h3>
+                        <p>Best sneakers in our region </p>
                      </div>
                </div>
             </Link>
@@ -23,12 +23,12 @@ const Header = ({ onOpen }) => {
                <img src="img/cart.svg" alt="cart icon" /> <span> {totalPrice} AMD</span>
             </li>
             <li>
-               <Link to="/favorites">
+               <Link to="/favorites" title='favorites'>
                   <img src="img/heart.svg" alt="heart icon" width={22} height={22}/>
                </Link>
             </li>
             <li>
-               <Link to="/orders">
+               <Link to="/orders" title='orders'>
                   <img src="img/user.svg" alt="user icon" width={22} height={22}/>
                </Link>
             </li>

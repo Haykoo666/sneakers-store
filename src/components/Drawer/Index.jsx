@@ -16,20 +16,20 @@ const Basket = ({ onClose, items, onRemove, opened }) => {
   const { totalPrice, tax, basketItems, setBasketItems } = useCart()
 
   const onClickOrder = async () => {
-      try {
-         setIsLoading(true)
-         const { data } = await sentOrders({items: basketItems});
-         setOrderId(data.id)
-         for (let i = 0; i < basketItems.length; ++i) {
-            await removeBasketItem(basketItems[i].order)
-         }
-         setBasketItems([])
-         setIsOrderComplete(true);
-      } catch (error) {
-         console.log("we cannot send order", error);
-      }finally{
-         setIsLoading(false)
+    try {
+      setIsLoading(true)
+      const { data } = await sentOrders({items: basketItems});
+      setOrderId(data.id)
+      for (let i = 0; i < basketItems.length; ++i) {
+        await removeBasketItem(basketItems[i].order)
       }
+      setBasketItems([])
+      setIsOrderComplete(true); 
+    } catch (error) {
+      console.log("we cannot send order", error);
+    }finally{
+      setIsLoading(false)
+    }
       
   }
 
@@ -37,8 +37,8 @@ const Basket = ({ onClose, items, onRemove, opened }) => {
     <article className={`${styles.overlay} ${opened ? styles.overlayVisible : ""}`} >
       <article className={styles.drawer}>
         <h2 className='d-flex__space-between__align-center'>
-               Cart
-               <img className='removebtn pointer' src="/img/btn-remove.svg" alt="remove icon" onClick={ onClose } title="close"/>
+          Cart
+          <img className='removebtn pointer' src="/img/btn-remove.svg" alt="remove icon" onClick={ onClose } title="close"/>
         </h2>
             <hr className='basket--line line' />
         <section className={`${styles.items}`}>
@@ -75,11 +75,11 @@ const Basket = ({ onClose, items, onRemove, opened }) => {
               </>
             ) :
             <Info 
-              title={isOrderComplete ? 'Заказ оформлен!' : 'Корзина пустая'}
+              title={isOrderComplete ? 'Order completed!' : 'Cart is empty'}
               description={
                 isOrderComplete
-                  ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
-                  : 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'
+                  ? `Your order #${orderId} soon to be delivered by courier`
+                  : 'Please add at least one pair of sneakers to place an order.'
               }
               img={isOrderComplete ? '/img/complete-order.jpg' : '/img/empty-cart.jpg'}
             />

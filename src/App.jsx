@@ -79,12 +79,6 @@ function App() {
     }
   }
 
-  const isItemAdded = (id) => {
-    return basketItems.some( (item) => item.id == id )
-  }
-  const isItemAddFavorite = (id) => {
-    return favorites.some( (item) => item.id == id )
-  }
 
   useEffect(() => {
 
@@ -114,8 +108,6 @@ function App() {
       basketItems,
       setBasketItems,
       favorites,
-      isItemAdded,
-      isItemAddFavorite, 
       addFavoriteHandler,
       cartOpened,
       setCartOpened
