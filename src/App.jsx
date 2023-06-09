@@ -1,6 +1,6 @@
 import './styles/app.scss'
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Basket from './components/Drawer/Index';
 import {
@@ -28,23 +28,23 @@ import Orders from './pages/Orders';
 
 function App() {
 
-  const [ basketItems, setBasketItems ] = useState([]);
-  const [ cartOpened, setCartOpened ] = useState(false);
-  const [ favorites, setFavorites ] = useState([]);
-  const [ items, setItems ] = useState([]);
-  const [ isLoading, setIsLoading ] = useState(true);
+  const [basketItems, setBasketItems] = useState([]);
+  const [cartOpened, setCartOpened] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
 
 
   const onAddToBasket = async (data) => {
 
     try {
-      let sameItem = basketItems.find( item => item.id == data.id )
-      
+      let sameItem = basketItems.find(item => item.id == data.id)
+
       if (sameItem) {
         await removeBasketItem(sameItem.order)
         setBasketItems(prev => prev.filter(item => item.id !== data.id))
-      }else{
+      } else {
         const { data: cartItem } = await saveCartItems(data);
         setBasketItems((prev) => [...prev, cartItem]);
       }
@@ -55,8 +55,8 @@ function App() {
 
   const removeFromBasket = async (id) => {
     try {
-        await removeBasketItem(id)
-        setBasketItems(basketItems.filter(item => item.order != id))
+      await removeBasketItem(id)
+      setBasketItems(basketItems.filter(item => item.order != id))
     } catch (error) {
       console.log("something went wrong before remove item from cart", error);
     }
@@ -65,7 +65,7 @@ function App() {
   const addFavoriteHandler = async (_data) => {
 
     try {
-      const sameItem = favorites.find(( favorite =>  favorite.id == _data.id ));
+      const sameItem = favorites.find((favorite => favorite.id == _data.id));
 
       if (sameItem) {
         await removeFavorite(sameItem.item)
@@ -82,23 +82,23 @@ function App() {
 
   useEffect(() => {
 
-      async function fetchData () {
-        try {
-          const [ itemsResponse, basketResponse, favoritesResponse ] = await Promise.all([ 
-            getItems(), getBasketData(), getFavorites() 
-          ]);
-  
-          setFavorites(favoritesResponse.data);
-          setBasketItems(basketResponse.data);
-          setItems(itemsResponse.data);
-          
-          setIsLoading(false);
-        } catch (error) {
-          console.log("something went wrong ", error);
-        }
-      }
+    async function fetchData() {
+      try {
+        const [itemsResponse, basketResponse, favoritesResponse] = await Promise.all([
+          getItems(), getBasketData(), getFavorites()
+        ]);
 
-      fetchData()
+        setFavorites(favoritesResponse.data);
+        setBasketItems(basketResponse.data);
+        setItems(itemsResponse.data);
+
+        setIsLoading(false);
+      } catch (error) {
+        console.log("something went wrong ", error);
+      }
+    }
+
+    fetchData()
 
   }, [])
 
@@ -113,30 +113,30 @@ function App() {
       setCartOpened
     }}>
       <section className="wrapper">
-        <Header onOpen = { () => setCartOpened( true ) }/>
-        
+        <Header onOpen={() => setCartOpened(true)} />
+
         <Routes>
-          <Route path='/' element={ 
-            <Home 
-              addFavoriteHandler={ addFavoriteHandler } 
-              onAddToBasket={ onAddToBasket }
-              basketItems = { basketItems }
-              items ={ items }
-              isLoading = { isLoading }
-            /> 
+          <Route path='/' element={
+            <Home
+              addFavoriteHandler={addFavoriteHandler}
+              onAddToBasket={onAddToBasket}
+              basketItems={basketItems}
+              items={items}
+              isLoading={isLoading}
+            />
           } />
-          <Route path='/favorites' element={ <Favorites /> } />
-          <Route path='/orders' element={ <Orders /> } />
+          <Route path='/favorites' element={<Favorites />} />
+          <Route path='/orders' element={<Orders />} />
         </Routes>
 
 
-          <Basket 
-            onClose = { () => setCartOpened( false ) } 
-            items = { basketItems } 
-            onRemove = { (id) => removeFromBasket(id)}
-            opened={ cartOpened }
-        /> 
-            
+        <Basket
+          onClose={() => setCartOpened(false)}
+          items={basketItems}
+          onRemove={(id) => removeFromBasket(id)}
+          opened={cartOpened}
+        />
+
       </section>
     </AppContext.Provider>
   )
